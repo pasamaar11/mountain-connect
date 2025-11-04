@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </select><br>
     <span style="color:red"><?= $errores['posicion'] ?? '' ?></span><br>
 
-    <label>Equipo:</label><br>
+    <label>Equipo Favorito:</label><br>
     <input type="text" name="equipo" value="<?= htmlspecialchars($equipo) ?>"><br>
     <span style="color:red"><?= $errores['equipo'] ?? '' ?></span><br>
 

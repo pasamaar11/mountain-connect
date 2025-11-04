@@ -1,6 +1,6 @@
 </main>
 <footer>
-    <p>&copy; 2025 MountainConnect - Comunidad Futbolera</p>
+    <p>&copy; 2025 FootballConnect - Comunidad Futbolera</p>
 </footer>
 </body>
 </html>

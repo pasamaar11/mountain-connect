@@ -7,15 +7,17 @@
     <link rel="stylesheet" href="/PHP/mountain-connect/assets/css/styles.css">
 </head>
 <body>
-<header>
-    <nav>
-        <h1>FootballConnect</h1>
-        <ul>
-            <li><a href="/PHP/mountain-connect/public/index.php">Inicio</a></li>
-            <li><a href="/PHP/mountain-connect/public/matches/list.php">Partidos</a></li>
-            <li><a href="/PHP/mountain-connect/public/login.php">Iniciar sesión</a></li>
-            <li><a href="/PHP/mountain-connect/public/register.php">Registrarse</a></li>
-        </ul>
-    </nav>
-</header>
-<main>
+    <header class="nav-header">
+        <nav class="nav-container">
+            <div class="logo-container">
+                <h1 class="logo">FootballConnect</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/PHP/mountain-connect/public/index.php" class="nav-btn">Inicio</a></li>
+                <li><a href="/PHP/mountain-connect/public/matches/list.php" class="nav-btn">Partidos</a></li>
+                <li><a href="/PHP/mountain-connect/public/login.php" class="nav-btn">Login</a></li>
+                <li><a href="/PHP/mountain-connect/public/register.php" class="nav-btn">Registro</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>

@@ -5,7 +5,7 @@ include_once('../includes/auth_check.php');
 $usuario = $_SESSION['usuario_logueado'];
 ?>
 
-<h2>Perfil de <?= htmlspecialchars($usuario['usuario']); ?> ⚽</h2>
+<h2>Perfil de <?= htmlspecialchars($usuario['usuario']); ?></h2>
 
 <p><strong>Email:</strong> <?= htmlspecialchars($usuario['email']); ?></p>
 <p><strong>Posición:</strong> <?= htmlspecialchars($usuario['posicion'] ?? 'No especificada'); ?></p>

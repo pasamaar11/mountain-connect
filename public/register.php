@@ -1,87 +1,94 @@
 <?php include_once('../includes/header.php'); ?>
 <?php include_once('../includes/functions.php'); ?>
 
-<h2>Registro de usuario</h2>
+<h2>Registro de jugador</h2>
 
 <?php
-// Inicializamos variables y errores
-$errors = [];
-$username = $email = $password = $confirm_password = $nivel = $especialidad = $provincia = "";
+$errores = [];
+$usuario = $email = $contraseña = $confirmar_contraseña = $posicion = $equipo = $provincia = "";
 
-// Cuando se envía el formulario
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $username = sanitize_input($_POST['username']);
+    $usuario = sanitize_input($_POST['usuario']);
     $email = sanitize_input($_POST['email']);
-    $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
-    $nivel = sanitize_input($_POST['nivel']);
-    $especialidad = sanitize_input($_POST['especialidad']);
+    $contraseña = $_POST['contraseña'];
+    $confirmar_contraseña = $_POST['confirmar_contraseña'];
+    $posicion = sanitize_input($_POST['posicion']);
+    $equipo = sanitize_input($_POST['equipo']);
     $provincia = sanitize_input($_POST['provincia']);
 
     // Validaciones
-    if (empty($username)) $errors['username'] = "El nombre de usuario es obligatorio.";
+    if (empty($usuario)) $errores['usuario'] = "El nombre de usuario es obligatorio.";
     if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL))
-        $errors['email'] = "Introduce un email válido.";
-    if (strlen($password) < 6)
-        $errors['password'] = "La contraseña debe tener al menos 6 caracteres.";
-    if ($password !== $confirm_password)
-        $errors['confirm_password'] = "Las contraseñas no coinciden.";
-    if (empty($nivel)) $errors['nivel'] = "Selecciona tu nivel de experiencia.";
-    if (empty($especialidad)) $errors['especialidad'] = "Selecciona tu especialidad.";
-    if (empty($provincia)) $errors['provincia'] = "Selecciona tu provincia.";
+        $errores['email'] = "Introduce un email válido.";
+    if (strlen($contraseña) < 6)
+        $errores['contraseña'] = "La contraseña debe tener al menos 6 caracteres.";
+    if ($contraseña !== $confirmar_contraseña)
+        $errores['confirmar_contraseña'] = "Las contraseñas no coinciden.";
+    if (empty($posicion)) $errores['posicion'] = "Selecciona tu posición en el campo.";
+    if (empty($equipo)) $errores['equipo'] = "Indica tu equipo actual o favorito.";
+    if (empty($provincia)) $errores['provincia'] = "Selecciona tu provincia.";
 
     // Si no hay errores
-    if (empty($errors)) {
-        // Guardado temporal en sesión o array
+    if (empty($errores)) {
         session_start();
         $_SESSION['usuarios'][] = [
-            'username' => $username,
+            'usuario' => $usuario,
             'email' => $email,
-            'nivel' => $nivel,
-            'especialidad' => $especialidad,
+            'posicion' => $posicion,
+            'equipo' => $equipo,
             'provincia' => $provincia
         ];
-        echo "<p style='color:green;'>Usuario registrado correctamente.</p>";
+        echo "<p style='color:green;'>Jugador registrado correctamente.</p>";
     }
 }
 ?>
 
 <form method="POST" action="">
     <label>Nombre de usuario:</label><br>
-    <input type="text" name="username" value="<?= htmlspecialchars($username) ?>"><br>
-    <span style="color:red"><?= $errors['username'] ?? '' ?></span><br>
+    <input type="text" name="usuario" value="<?= htmlspecialchars($usuario) ?>"><br>
+    <span style="color:red"><?= $errores['usuario'] ?? '' ?></span><br>
 
     <label>Email:</label><br>
     <input type="email" name="email" value="<?= htmlspecialchars($email) ?>"><br>
-    <span style="color:red"><?= $errors['email'] ?? '' ?></span><br>
+    <span style="color:red"><?= $errores['email'] ?? '' ?></span><br>
 
     <label>Contraseña:</label><br>
-    <input type="password" name="password"><br>
-    <span style="color:red"><?= $errors['password'] ?? '' ?></span><br>
+    <input type="password" name="contraseña"><br>
+    <span style="color:red"><?= $errores['contraseña'] ?? '' ?></span><br>
 
     <label>Confirmar contraseña:</label><br>
-    <input type="password" name="confirm_password"><br>
-    <span style="color:red"><?= $errors['confirm_password'] ?? '' ?></span><br>
+    <input type="password" name="confirmar_contraseña"><br>
+    <span style="color:red"><?= $errores['confirmar_contraseña'] ?? '' ?></span><br>
 
-    <label>Nivel de experiencia:</label><br>
-    <select name="nivel">
+    <label>Posición en el campo:</label><br>
+    <select name="posicion">
         <option value="">Seleccionar...</option>
-        <option value="principiante" <?= $nivel=="principiante"?'selected':'' ?>>Principiante</option>
-        <option value="intermedio" <?= $nivel=="intermedio"?'selected':'' ?>>Intermedio</option>
-        <option value="avanzado" <?= $nivel=="avanzado"?'selected':'' ?>>Avanzado</option>
+        <option value="portero" <?= $posicion=="portero"?'selected':'' ?>>Portero</option>
+        <option value="defensa" <?= $posicion=="defensa"?'selected':'' ?>>Defensa</option>
+        <option value="centrocampista" <?= $posicion=="centrocampista"?'selected':'' ?>>Centrocampista</option>
+        <option value="delantero" <?= $posicion=="delantero"?'selected':'' ?>>Delantero</option>
     </select><br>
-    <span style="color:red"><?= $errors['nivel'] ?? '' ?></span><br>
+    <span style="color:red"><?= $errores['posicion'] ?? '' ?></span><br>
 
-    <label>Especialidad:</label><br>
-    <input type="text" name="especialidad" value="<?= htmlspecialchars($especialidad) ?>"><br>
-    <span style="color:red"><?= $errors['especialidad'] ?? '' ?></span><br>
+    <label>Equipo:</label><br>
+    <input type="text" name="equipo" value="<?= htmlspecialchars($equipo) ?>"><br>
+    <span style="color:red"><?= $errores['equipo'] ?? '' ?></span><br>
 
     <label>Provincia:</label><br>
     <input type="text" name="provincia" value="<?= htmlspecialchars($provincia) ?>"><br>
-    <span style="color:red"><?= $errors['provincia'] ?? '' ?></span><br>
+    <span style="color:red"><?= $errores['provincia'] ?? '' ?></span><br>
 
     <br><input type="submit" value="Registrarse">
 </form>
+
+<?php
+session_start();
+if (!empty($_SESSION['usuarios'])) {
+    echo "<h3>Jugadores registrados:</h3><pre>";
+    print_r($_SESSION['usuarios']);
+    echo "</pre>";
+}
+?>
 
 <?php include_once('../includes/footer.php'); ?>

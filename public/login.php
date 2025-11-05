@@ -10,6 +10,7 @@ $usuario = $contraseña = "";
 
 // Si se envía el formulario
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Sanitización de entradas
     $usuario = sanitize_input($_POST['usuario']);
     $contraseña = $_POST['contraseña'];
 
@@ -30,10 +31,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
 
             if ($usuario_encontrado) {
-                // Aquí no validamos contraseña porque no la guardamos aún
-                $_SESSION['usuario_logueado'] = $usuario_encontrado;
-                header("Location: profile.php");
-                exit;
+                // Verificamos la contraseña
+                if (password_verify($contraseña, $usuario_encontrado['contraseña'])) {
+                    $_SESSION['usuario_logueado'] = $usuario_encontrado;
+                    header("Location: profile.php");
+                    exit;
+                } else {
+                    $errores['general'] = "Contraseña incorrecta.";
+                }
             } else {
                 $errores['general'] = "Usuario no encontrado. Regístrate primero.";
             }

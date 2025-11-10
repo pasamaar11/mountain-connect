@@ -4,7 +4,10 @@
 <h2>Iniciar sesión</h2>
 
 <?php
-session_start();
+if(session_status() === PHP_SESSION_NONE){
+    session_start();
+}
+
 $errores = [];
 $usuario = $contraseña = "";
 

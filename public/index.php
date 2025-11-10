@@ -9,10 +9,20 @@
     <h3>¿Qué puedes hacer aquí?</h3>
     <ul>
         <li>Crear tu perfil como jugador o aficionado</li>
-        <li>Publicar partidos, resultados y fotos</li>
+        <li>Publicar partidos, ligas y equipos</li>
         <li>Comentar y valorar encuentros</li>
         <li>Conocer a otros futboleros de tu zona</li>
     </ul>
+</section>
+
+<section class="mainMenu"> 
+    <nav>
+        <ul>
+            <li>⚽<a href="matches.php">Partidos</a></li>
+            <li>🏆<a href="leagues.php">Ligas</a></li>
+            <li>🛡️<a href="teams.php">Equipos</a></li>
+        </ul>
+    </nav>
 </section>
 
 <section class="cta">

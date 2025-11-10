@@ -74,7 +74,7 @@ main {
 }
 
 .nav-btn:hover {
-    background-color: #0049D1;
+    background-color: #f9c400;
     color: #ffffff;
     border: 2px solid #f9c400;
     transform: translateY(-2px);
@@ -124,12 +124,12 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #0055cc;
+    background-color: #bbcc00;
     transform: translateY(-2px);
 }
 
 /* --- Secciones principales --- */
-.bienvenida, .funcionalidades, .cta {
+.bienvenida, .funcionalidades, .cta, .mainMenu {
     text-align: center;
     margin: 30px auto;
     max-width: 700px;

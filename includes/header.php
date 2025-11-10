@@ -20,17 +20,16 @@ if (session_status() === PHP_SESSION_NONE) {
             </div>
 
             <ul class="nav-links">
-                <li><a href="/PHP/mountain-connect/public/index.php" class="nav-btn">Inicio</a></li>
-                <li><a href="/PHP/mountain-connect/public/matches/list.php" class="nav-btn">Partidos</a></li>
+                <a href="/PHP/mountain-connect/public/index.php" class="nav-btn">🏠 Inicio</a>
 
                 <?php if (isset($_SESSION['usuario_logueado'])): ?>
-                    <li><a href="/PHP/mountain-connect/public/profile.php" class="nav-btn">
+                    <a href="/PHP/mountain-connect/public/profile.php" class="nav-btn">
                         👤 <?= htmlspecialchars($_SESSION['usuario_logueado']['usuario']) ?>
-                    </a></li>
-                    <li><a href="/PHP/mountain-connect/public/logout.php" class="nav-btn">Cerrar sesión</a></li>
+                    </a>
+                    <a href= "/PHP/mountain-connect/public/logout.php" class="nav-btn">💔 Cerrar sesión</a>
                 <?php else: ?>
-                    <li><a href="/PHP/mountain-connect/public/login.php" class="nav-btn">Login</a></li>
-                    <li><a href="/PHP/mountain-connect/public/register.php" class="nav-btn">Registro</a></li>
+                    <a href="/PHP/mountain-connect/public/login.php" class="nav-btn">Login</a>
+                    <a href="/PHP/mountain-connect/public/register.php" class="nav-btn">Registro</a>
                 <?php endif; ?>
             </ul>
         </nav>

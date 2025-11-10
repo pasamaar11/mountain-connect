@@ -14,6 +14,7 @@ $usuario = $_SESSION['usuario_logueado'];
 <p><strong>Categoría:</strong> <?= htmlspecialchars($usuario['categoria']); ?></p>
 <p><strong>Provincia:</strong> <?= htmlspecialchars($usuario['provincia']); ?></p>
 
-<a href="logout.php">Cerrar sesión</a>
+<a href="editProfile.php"><button>Editar perfil</button></a>
+<a href="logout.php"><button>Cerrar sesión</button></a>
 
 <?php include_once('../includes/footer.php'); ?>

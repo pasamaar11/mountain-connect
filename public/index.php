@@ -2,7 +2,7 @@
 
 <section class="bienvenida">
     <h2>Bienvenido a FootballConnect</h2>
-    <p>Únete a la mayor comunidad futbolera online: comparte tus partidos, comenta jugadas y presume de tus equipos.</p>
+    <p>Únete a la mayor comunidad futbolera online: mira las clasificaciones, comenta partidos y presume de tus equipos.</p>
 </section>
 
 <section class="funcionalidades">

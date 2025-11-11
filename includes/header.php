@@ -16,7 +16,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <header class="nav-header">
         <nav class="nav-container">
             <div class="logo-container">
-                <h1 class="logo">FootballConnect</h1>
+                <h1 class="logo">FootballConnect ⚽</h1>
             </div>
 
             <ul class="nav-links">

@@ -24,18 +24,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $categoria = sanitize_input($_POST['categoria']);
     $provincia = sanitize_input($_POST['provincia']);
 
-    // Validaciones
-    if (empty($usuario)) $errores['usuario'] = "El nombre de usuario es obligatorio.";
-    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL))
-        $errores['email'] = "Introduce un email válido.";
-    if (strlen($password) < 6)
-        $errores['contraseña'] = "La contraseña debe tener al menos 6 caracteres.";
-    if ($password !== $confirm_password)
-        $errores['confirmar_contraseña'] = "Las contraseñas no coinciden.";
-    if (empty($posicion)) $errores['posicion'] = "Selecciona tu posición en el campo.";
-    if (empty($genero)) $errores['genero'] = "Selecciona tu género.";
-    if (empty($categoria)) $errores['categoria'] = "Selecciona tu categoría.";
-    if (empty($provincia)) $errores['provincia'] = "Selecciona tu provincia.";
+    // Validaciones (mensajes de errores)
+    if (empty($usuario))
+    $errores['usuario'] = "El nombre de usuario es obligatorio.";
+
+if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL))
+    $errores['email'] = "Introduce un email válido.";
+
+if (strlen($password) < 6)
+    $errores['contraseña'] = "La contraseña debe tener al menos 6 caracteres.";
+
+if ($password !== $confirm_password)
+    $errores['confirmar_contraseña'] = "Las contraseñas no coinciden.";
+
+
+if (empty($posicion))
+    $errores['posicion'] = "Selecciona tu posición en el campo.";
+
+if (empty($categoria))
+    $errores['categoria'] = "Selecciona tu categoría.";
+
+if (empty($provincia))
+    $errores['provincia'] = "La provincia es obligatoria.";
 
     // Si no hay errores, registramos el jugador
     if (empty($errores)) {
@@ -47,8 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             'contraseña' => $hash,
             'posicion' => $posicion,
             'equipo' => $equipo,
-            'genero' => $genero,
             'categoria' => $categoria,
+            'genero' => $genero,
             'provincia' => $provincia
         ];
 
@@ -75,29 +85,29 @@ if (isset($_SESSION['registro_exitoso'])) {
 <form method="POST" action="">
     <label>Nombre de usuario:</label><br>
     <input type="text" name="usuario" value="<?= htmlspecialchars($usuario) ?>"><br>
-    <span style="color:red"><?= $errores['usuario'] ?? '' ?></span><br>
+    <span style="color:red"><?= $errores['usuario'] ?? '' ?></span><br/><br/>
 
     <label>Email:</label><br>
     <input type="email" name="email" value="<?= htmlspecialchars($email) ?>"><br>
-    <span style="color:red"><?= $errores['email'] ?? '' ?></span><br>
+    <span style="color:red"><?= $errores['email'] ?? '' ?></span><br/><br/>
 
     <label>Contraseña:</label><br>
     <input type="password" name="contraseña"><br>
-    <span style="color:red"><?= $errores['contraseña'] ?? '' ?></span><br>
+    <span style="color:red"><?= $errores['contraseña'] ?? '' ?></span><br><br/>
 
     <label>Confirmar contraseña:</label><br>
     <input type="password" name="confirmar_contraseña"><br>
-    <span style="color:red"><?= $errores['confirmar_contraseña'] ?? '' ?></span><br>
+    <span style="color:red"><?= $errores['confirmar_contraseña'] ?? '' ?></span><br><br/>
 
     <label>Posición en el campo:</label><br>
-    <select name="posicion">
+    <select name="posicion" required>
         <option value="">Seleccionar...</option>
         <option value="Portero" <?= $posicion == "Portero" ? 'selected' : '' ?>>Portero</option>
         <option value="Defensa" <?= $posicion == "Defensa" ? 'selected' : '' ?>>Defensa</option>
         <option value="Centrocampista" <?= $posicion == "Centrocampista" ? 'selected' : '' ?>>Centrocampista</option>
         <option value="Delantero" <?= $posicion == "Delantero" ? 'selected' : '' ?>>Delantero</option>
-    </select><br>
-    <span style="color:red"><?= $errores['posicion'] ?? '' ?></span><br>
+    </select>
+    <span style="color:red"><?= $errores['posicion'] ?? '' ?></span><br><br>
 
     <label>Equipo Favorito:</label><br>
     <input type="text" name="equipo" value="<?= htmlspecialchars($equipo) ?>"><br>
@@ -105,19 +115,18 @@ if (isset($_SESSION['registro_exitoso'])) {
     <label>Género:</label><br>
     <select name="genero">
         <option value="">Seleccionar...</option>
-        <option value="Masculino" <?= $genero == "Masculino" ? 'selected' : '' ?>>Masculino</option>
-        <option value="Femenino" <?= $genero == "Femenino" ? 'selected' : '' ?>>Femenino</option>
+        <option value="Masculino" <?= $genero == "Masculino" ?>>Masculino</option>
+        <option value="Femenino" <?= $genero == "Femenino" ?>>Femenino</option>
     </select><br>
-    <span style="color:red"><?= $errores['genero'] ?? '' ?></span><br>
 
     <label>Categoría:</label><br>
-    <select name="categoria">
+    <select name="categoria" required>
         <option value="">Seleccionar...</option>
-        <option value="Regional" <?= $categoria == "Regional" ? 'selected' : '' ?>>Regional (+18 años)</option>
-        <option value="Juvenil" <?= $categoria == "Juvenil" ? 'selected' : '' ?>>Juvenil (16-18 años)</option>
-        <option value="Cadete" <?= $categoria == "Cadete" ? 'selected' : '' ?>>Cadete (14-15 años)</option>
-        <option value="Infantil" <?= $categoria == "Infantil" ? 'selected' : '' ?>>Infantil (12-13 años)</option>
-        <option value="Alevin" <?= $categoria == "Alevin" ? 'selected' : '' ?>>Alevín (10-11 años)</option>
+        <option value="Regional" <?= $categoria == "Regional" ? 'selected' : ''?>>Regional (+18 años)</option>
+        <option value="Juvenil" <?= $categoria == "Juvenil" ? 'selected' : ''?>>Juvenil (16-18 años)</option>
+        <option value="Cadete" <?= $categoria == "Cadete" ? 'selected' : ''?>>Cadete (14-15 años)</option>
+        <option value="Infantil" <?= $categoria == "Infantil" ? 'selected' : ''?>>Infantil (12-13 años)</option>
+        <option value="Alevin" <?= $categoria == "Alevin" ? 'selected' : ''?>>Alevín (10-11 años)</option>
     </select><br>
     <span style="color:red"><?= $errores['categoria'] ?? '' ?></span><br>
 
@@ -129,12 +138,5 @@ if (isset($_SESSION['registro_exitoso'])) {
 </form>
 
 <?php
-// Mostrar los usuarios registrados (solo para depurar)
-if (!empty($_SESSION['usuarios'])) {
-    echo "<h3>Jugadores registrados:</h3><pre>";
-    print_r($_SESSION['usuarios']);
-    echo "</pre>";
-}
-
-include_once('../includes/footer.php');
+    include_once('../includes/footer.php');
 ?>

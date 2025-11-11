@@ -124,7 +124,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #bbcc00;
+    background-color: #f9c400;
     transform: translateY(-2px);
 }
 

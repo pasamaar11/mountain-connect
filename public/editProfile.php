@@ -33,12 +33,12 @@ if (isset($success)) {
     <input type="email" name="email" value="<?= htmlspecialchars($usuario['email']); ?>" required>
 
     <label>Posición en el campo:</label><br>
-    <select name="posicion">
+    <select name="posicion" required>
         <option value="">Seleccionar...</option>
-        <option value="Portero" <?= $usuario['posicion'] == "Portero" ? 'selected' : '' ?>>Portero</option>
-        <option value="Defensa" <?= $usuario['posicion'] == "Defensa" ? 'selected' : '' ?>>Defensa</option>
-        <option value="Centrocampista" <?= $usuario['posicion'] == "Centrocampista" ? 'selected' : '' ?>>Centrocampista</option>
-        <option value="Delantero" <?= $usuario['posicion'] == "Delantero" ? 'selected' : '' ?>>Delantero</option>
+        <option value="Portero" <?= $usuario['posicion'] == "Portero" ?>>Portero</option>
+        <option value="Defensa" <?= $usuario['posicion'] == "Defensa" ?>>Defensa</option>
+        <option value="Centrocampista" <?= $usuario['posicion'] == "Centrocampista" ?>>Centrocampista</option>
+        <option value="Delantero" <?= $usuario['posicion'] == "Delantero" ?>>Delantero</option>
     </select><br>
 
     <label>Equipo:</label>
@@ -47,22 +47,22 @@ if (isset($success)) {
     <label>Género:</label><br>
     <select name="genero">
         <option value="">Seleccionar...</option>
-        <option value="Masculino" <?= $usuario['genero'] == "Masculino" ? 'selected' : '' ?>>Masculino</option>
-        <option value="Femenino" <?= $usuario['genero'] == "Femenino" ? 'selected' : '' ?>>Femenino</option>
+        <option value="Masculino" <?= $usuario['genero'] == "Masculino" ?>>Masculino</option>
+        <option value="Femenino" <?= $usuario['genero'] == "Femenino" ?>>Femenino</option>
     </select><br>
 
     <label>Categoría:</label><br>
-    <select name="categoria">
+    <select name="categoria" required>
         <option value="">Seleccionar...</option>
-        <option value="Regional" <?= $usuario['categoria'] == "Regional" ? 'selected' : '' ?>>Regional (+18 años)</option>
-        <option value="Juvenil" <?= $usuario['categoria'] == "Juvenil" ? 'selected' : '' ?>>Juvenil (16-18 años)</option>
-        <option value="Cadete" <?= $usuario['categoria'] == "Cadete" ? 'selected' : '' ?>>Cadete (14-15 años)</option>
-        <option value="Infantil" <?= $usuario['categoria'] == "Infantil" ? 'selected' : '' ?>>Infantil (12-13 años)</option>
-        <option value="Alevin" <?= $usuario['categoria'] == "Alevin" ? 'selected' : '' ?>>Alevín (10-11 años)</option>
+        <option value="Regional" <?= $usuario['categoria'] == "Regional" ?>>Regional (+18 años)</option>
+        <option value="Juvenil" <?= $usuario['categoria'] == "Juvenil" ?>>Juvenil (16-18 años)</option>
+        <option value="Cadete" <?= $usuario['categoria'] == "Cadete" ?>>Cadete (14-15 años)</option>
+        <option value="Infantil" <?= $usuario['categoria'] == "Infantil" ?>>Infantil (12-13 años)</option>
+        <option value="Alevin" <?= $usuario['categoria'] == "Alevin" ?>>Alevín (10-11 años)</option>
     </select><br>
 
     <label>Provincia:</label>
-    <input type="text" name="provincia" value="<?= htmlspecialchars($usuario['provincia']); ?>">
+    <input type="text" name="provincia" value="<?= htmlspecialchars($usuario['provincia']);  ?>">
 
     <button type="submit">Guardar cambios</button>
 </form>

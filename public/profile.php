@@ -10,7 +10,7 @@ $usuario = $_SESSION['usuario_logueado'];
 <p><strong>Email:</strong> <?= htmlspecialchars($usuario['email']); ?></p>
 <p><strong>Posición:</strong> <?= htmlspecialchars($usuario['posicion']); ?></p>
 <p><strong>Equipo:</strong> <?= htmlspecialchars($usuario['equipo']) ?: 'No especificado'; ?></p>
-<p><strong>Género:</strong> <?= htmlspecialchars($usuario['genero']); ?></p>
+<p><strong>Género:</strong> <?= htmlspecialchars($usuario['genero']) ?: 'No especificado'; ?></p>
 <p><strong>Categoría:</strong> <?= htmlspecialchars($usuario['categoria']); ?></p>
 <p><strong>Provincia:</strong> <?= htmlspecialchars($usuario['provincia']); ?></p>
 

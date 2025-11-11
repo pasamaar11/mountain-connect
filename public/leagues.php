@@ -3,7 +3,10 @@ include_once('../includes/header.php');
 include_once('../includes/auth_check.php');
 
 // Lista de ligas
-$ligas = ["Liga 1", "Liga 2"];
+$ligas = [
+    "Liga 1" => ["categoria" => "Juvenil"], 
+    "Liga 2" => ["categoria" => "Regional"]
+];
 
 // Liga seleccionada (por defecto Liga 1)
 $ligaSeleccionada = $_POST['liga'] ?? "Liga 1";
@@ -11,7 +14,7 @@ $ligaSeleccionada = $_POST['liga'] ?? "Liga 1";
 // Equipos por liga
 $equiposPorLiga = [
     "Liga 1" => ["Valdefierro","Delicias","Escalerillas","Oliver","Pina de Ebro","San José","Casablanca","Montañana"],
-    "Liga 2" => ["Equipo A","Equipo B","Equipo C","Equipo D"]
+    "Liga 2" => ["Casetas","Caspe","Illueca","Utebo","La Almunia","Ejea","Tarazona","Calatayud"]
 ];
 
 // Partidos por liga
@@ -23,8 +26,10 @@ $partidosPorLiga = [
         ["local"=>"Casablanca","visitante"=>"Montañana","resultado"=>"4-2"]
     ],
     "Liga 2" => [
-        ["local"=>"Equipo A","visitante"=>"Equipo B","resultado"=>"1-0"],
-        ["local"=>"Equipo C","visitante"=>"Equipo D","resultado"=>"2-2"]
+        ["local"=>"Casetas","visitante"=>"Caspe","resultado"=>"1-0"],
+        ["local"=>"Illueca","visitante"=>"Utebo","resultado"=>"0-0"],
+        ["local"=>"La Almunia","visitante"=>"Ejea","resultado"=>"1-3"],
+        ["local"=>"Tarazona","visitante"=>"Calatayud","resultado"=>"4-2"]
     ]
 ];
 
@@ -63,24 +68,36 @@ foreach($partidos as $p){
 
 // Ordenar por puntos y diferencia de goles
 uasort($tabla,function($a,$b){
-    if($a["puntos"] === $b["puntos"]) return $b["dg"] <=> $a["dg"];
+    if($a["puntos"] === $b["puntos"]) 
+        return $b["dg"] <=> $a["dg"];
     return $b["puntos"] <=> $a["puntos"];
 });
 ?>
 
 <h2>Clasificación <?= htmlspecialchars($ligaSeleccionada) ?></h2>
+<p>Categoría de la competición: <?= htmlspecialchars($ligas[$ligaSeleccionada]['categoria']) ?></p>
 
 <form method="post">
     <label>Selecciona la liga:</label>
     <select name="liga" onchange="this.form.submit()">
-        <?php foreach($ligas as $liga): ?>
-            <option value="<?= $liga ?>" <?= $liga==$ligaSeleccionada?"selected":"" ?>><?= $liga ?></option>
-        <?php endforeach; ?>
+        <?php foreach($ligas as $nombreLiga => $datosLiga): ?>
+    <option value="<?= $nombreLiga ?>" <?= $nombreLiga==$ligaSeleccionada?"selected":"" ?>>
+        <?= $nombreLiga ?>
+    </option>
+<?php endforeach; ?>
+
     </select>
 </form>
 
 <table border="1" cellpadding="8" cellspacing="0">
-<tr><th>Pos</th><th>Equipo</th><th>Puntos</th><th>GF</th><th>GC</th><th>DG</th></tr>
+<tr>
+    <th>Pos</th>
+    <th>Equipo</th>
+    <th>Puntos</th>
+    <th>GF</th>
+    <th>GC</th>
+    <th>DG</th>
+</tr>
 <?php $pos=1; foreach($tabla as $equipo=>$datos): ?>
 <tr>
     <td><?= $pos++ ?></td>

@@ -28,8 +28,8 @@ if (session_status() === PHP_SESSION_NONE) {
                     </a>
                     <a href= "/PHP/mountain-connect/public/logout.php" class="nav-btn">💔 Cerrar sesión</a>
                 <?php else: ?>
-                    <a href="/PHP/mountain-connect/public/login.php" class="nav-btn">Login</a>
-                    <a href="/PHP/mountain-connect/public/register.php" class="nav-btn">Registro</a>
+                    <a href="/PHP/mountain-connect/public/login.php" class="nav-btn">👤 Login</a>
+                    <a href="/PHP/mountain-connect/public/register.php" class="nav-btn">📝 Registrarse</a>
                 <?php endif; ?>
             </ul>
         </nav>

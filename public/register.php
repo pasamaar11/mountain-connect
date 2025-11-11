@@ -44,9 +44,6 @@ if (empty($posicion))
 if (empty($categoria))
     $errores['categoria'] = "Selecciona tu categoría.";
 
-if (empty($provincia))
-    $errores['provincia'] = "La provincia es obligatoria.";
-
     // Si no hay errores, registramos el jugador
     if (empty($errores)) {
         $hash = password_hash($password, PASSWORD_DEFAULT);

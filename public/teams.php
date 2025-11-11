@@ -8,7 +8,7 @@ $ligaSeleccionada = $_POST['liga'] ?? "Liga 1";
 
 $equiposPorLiga = [
     "Liga 1" => ["Valdefierro","Delicias","Escalerillas","Oliver","Pina de Ebro","San José","Casablanca","Montañana"],
-    "Liga 2" => ["Equipo A","Equipo B","Equipo C","Equipo D"]
+    "Liga 2" => ["Casetas","Caspe","Illueca","Utebo","La Almunia","Ejea","Tarazona","Calatayud"]
 ];
 
 $equipos = $equiposPorLiga[$ligaSeleccionada];

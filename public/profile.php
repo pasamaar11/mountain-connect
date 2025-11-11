@@ -12,7 +12,7 @@ $usuario = $_SESSION['usuario_logueado'];
 <p><strong>Equipo:</strong> <?= htmlspecialchars($usuario['equipo']) ?: 'No especificado'; ?></p>
 <p><strong>Género:</strong> <?= htmlspecialchars($usuario['genero']) ?: 'No especificado'; ?></p>
 <p><strong>Categoría:</strong> <?= htmlspecialchars($usuario['categoria']); ?></p>
-<p><strong>Provincia:</strong> <?= htmlspecialchars($usuario['provincia']); ?></p>
+<p><strong>Provincia:</strong> <?= htmlspecialchars($usuario['provincia']) ?: 'No especificada'; ?></p>
 
 <a href="editProfile.php"><button>Editar perfil</button></a>
 <a href="logout.php"><button>Cerrar sesión</button></a>

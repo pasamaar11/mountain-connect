@@ -1,12 +1,13 @@
 <?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 include_once('../includes/header.php');
 include_once('../includes/auth_check.php');
 
-if (!isset($_SESSION)) {
-    session_start();
-}  
-
-// Inicializar array de comentarios si no existe
+// Inicializar comentarios si no existen
 if (!isset($_SESSION['comentarios'])) {
     $_SESSION['comentarios'] = [];
 }
@@ -24,17 +25,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comentario'], $_POST[
         'fecha' => $fecha
     ];
 
-    // Evitar reenvío del formulario
     header("Location: " . $_SERVER['PHP_SELF'] . "?liga=" . urlencode($_POST['liga_actual']));
     exit;
 }
 
+// Ligas fijas
+$ligasFijas = ["Liga 1","Liga 2","Liga 3","Liga 4","Liga 5","Liga 6"];
 
-// Lista de ligas
-$ligas = ["Liga 1","Liga 2","Liga 3","Liga 4","Liga 5","Liga 6"];
-$ligaSeleccionada = $_POST['liga'] ?? "Liga 1";
-
-$partidosPorLiga = [
+// Partidos fijos
+$partidosPorLigaFijas = [
     "Liga 1" => [
         ["local"=>"Valdefierro","visitante"=>"Delicias","resultado"=>"2-1"],
         ["local"=>"Oliver","visitante"=>"San José","resultado"=>"1-1"],
@@ -45,7 +44,6 @@ $partidosPorLiga = [
         ["local"=>"Montañana","visitante"=>"Escalerillas","resultado"=>"2-2"],
         ["local"=>"La Jota","visitante"=>"Casablanca","resultado"=>"1-1"]
     ],
-
     "Liga 2" => [
         ["local"=>"Casetas","visitante"=>"Rosales","resultado"=>"2-0"],
         ["local"=>"Miralbueno","visitante"=>"Utebo","resultado"=>"1-1"],
@@ -56,7 +54,6 @@ $partidosPorLiga = [
         ["local"=>"Torrero","visitante"=>"San Gregorio","resultado"=>"3-0"],
         ["local"=>"San José","visitante"=>"La Almozara","resultado"=>"2-1"]
     ],
-
     "Liga 3" => [
         ["local"=>"Actur","visitante"=>"Oliver","resultado"=>"0-2"],
         ["local"=>"San José","visitante"=>"Casablanca","resultado"=>"1-1"],
@@ -67,7 +64,6 @@ $partidosPorLiga = [
         ["local"=>"Montecanal","visitante"=>"La Jota","resultado"=>"0-1"],
         ["local"=>"Delicias","visitante"=>"Valdefierro","resultado"=>"1-3"]
     ],
-
     "Liga 4" => [
         ["local"=>"Montañana","visitante"=>"Escalerillas","resultado"=>"2-2"],
         ["local"=>"Casetas","visitante"=>"Miralbueno","resultado"=>"1-1"],
@@ -78,7 +74,6 @@ $partidosPorLiga = [
         ["local"=>"San Gregorio","visitante"=>"La Almozara","resultado"=>"1-1"],
         ["local"=>"Torrero","visitante"=>"Casetas","resultado"=>"3-1"]
     ],
-
     "Liga 5" => [
         ["local"=>"Oliver","visitante"=>"Actur","resultado"=>"1-0"],
         ["local"=>"San José","visitante"=>"Valdefierro","resultado"=>"0-2"],
@@ -89,7 +84,6 @@ $partidosPorLiga = [
         ["local"=>"Montecanal","visitante"=>"Casablanca","resultado"=>"0-2"],
         ["local"=>"La Jota","visitante"=>"Delicias","resultado"=>"1-1"]
     ],
-
     "Liga 6" => [
         ["local"=>"Torrero","visitante"=>"La Almozara","resultado"=>"2-1"],
         ["local"=>"Miralbueno","visitante"=>"Rosales","resultado"=>"0-0"],
@@ -102,21 +96,31 @@ $partidosPorLiga = [
     ]
 ];
 
+// Combinar con ligas creadas por usuario
+$partidosPorLigaUsuario = $_SESSION['partidosPorLiga'] ?? [];
+$partidosPorLiga = array_merge($partidosPorLigaFijas, $partidosPorLigaUsuario);
 
-$partidos = $partidosPorLiga[$ligaSeleccionada];
+// Lista completa de ligas
+$ligas = array_keys($partidosPorLiga);
+
+// Liga seleccionada
+$ligaSeleccionada = $_POST['liga'] ?? $_GET['liga'] ?? "Liga 1";
+
+$partidos = $partidosPorLiga[$ligaSeleccionada] ?? [];
 ?>
 
-<h2>Partidos <?= htmlspecialchars($ligaSeleccionada) ?></h2>
+<h2>Partidos de <?= htmlspecialchars($ligaSeleccionada) ?></h2>
 
 <form method="post">
     <label>Selecciona la liga:</label>
     <select name="liga" onchange="this.form.submit()">
         <?php foreach($ligas as $liga): ?>
-            <option value="<?= $liga ?>" <?= $liga==$ligaSeleccionada?"selected":"" ?>><?= $liga ?></option>
+            <option value="<?= htmlspecialchars($liga) ?>" <?= $liga==$ligaSeleccionada?"selected":"" ?>>
+                <?= htmlspecialchars($liga) ?>
+            </option>
         <?php endforeach; ?>
     </select>
 </form>
-
 
 <table border="1" cellpadding="8" cellspacing="0">
 <tr>
@@ -126,7 +130,7 @@ $partidos = $partidosPorLiga[$ligaSeleccionada];
     <th>Visitante</th>
 </tr>
 <?php $i=1; foreach($partidos as $p): 
-    $idPartido = $p['local'] . "_vs_" . $p['visitante']; // ID único por partido
+    $idPartido = $p['local'] . "_vs_" . $p['visitante'];
 ?>
 <tr>
     <td><?= $i++ ?></td>
@@ -156,7 +160,6 @@ $partidos = $partidosPorLiga[$ligaSeleccionada];
 </tr>
 <?php endforeach; ?>
 </table>
-
 
 <p><a href="leagues.php">Ver clasificación</a> | <a href="teams.php">Ver equipos</a></p>
 <?php include_once('../includes/footer.php'); ?>

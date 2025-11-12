@@ -1,8 +1,16 @@
 <?php
+
+if (session_status () === PHP_SESSION_NONE){
+    session_start();
+}
+
 include_once('../includes/header.php');
 include_once('../includes/auth_check.php');
 
 $usuario = $_SESSION['usuario_logueado'];
+
+// Solo ligas creadas por el usuario
+$ligas_usuario = $_SESSION['ligas_usuario'] ?? [];
 ?>
 
 <h2>Perfil de <?= htmlspecialchars($usuario['usuario']); ?></h2>
@@ -17,4 +25,22 @@ $usuario = $_SESSION['usuario_logueado'];
 <a href="editProfile.php"><button>Editar perfil</button></a>
 <a href="logout.php"><button>Cerrar sesión</button></a>
 
-<?php include_once('../includes/footer.php'); ?>
+<hr>
+
+<h3>Ligas creadas por ti</h3>
+
+<?php if (!empty($ligas_usuario)): ?>
+    <ul>
+        <?php foreach ($ligas_usuario as $nombreLiga => $datosLiga): ?>
+            <li>
+                <strong><?= htmlspecialchars($nombreLiga) ?></strong>
+                (<?= htmlspecialchars($datosLiga['categoria'] ?? 'Sin categoría') ?>)
+                <a href="leagues.php?liga=<?= urlencode($nombreLiga) ?>">
+                    <button style="margin-left:10px;">Ver liga</button>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php else: ?>
+    <p>No has creado ligas todavía.</p>
+<?php endif; ?>
